@@ -27,7 +27,7 @@ public class PecaController {
     }
 
     @GetMapping("/{codigo}")
-    public ResponseEntity<Peca> buscarPorCodigo(@PathVariable String codigo) {
+    public ResponseEntity<Peca> buscarPorCodigo(@PathVariable Long codigo) {
         return pecaService.buscarPorCodigo(codigo)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

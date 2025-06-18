@@ -14,7 +14,7 @@ public class Peca {
     private Long id;
 
     @Column(unique = true, nullable = false)
-    private String codigo;
+    private Long codigo;
 
     @Column(nullable = false)
     private String nome;
@@ -23,19 +23,18 @@ public class Peca {
     private List<Componente> componentes = new ArrayList<>();
 
     //construtores
-
     public Peca() {
         super();
     }
 
-    public Peca(Long id, String codigo, String nome, List<Componente> componentes) {
+    public Peca(Long id, Long codigo, String nome, List<Componente> componentes) {
         this.id = id;
         this.codigo = codigo;
         this.nome = nome;
         this.componentes = componentes;
     }
 
-    // getters e setters
+    //getters e setters
     public Long getId() {
         return id;
     }
@@ -44,11 +43,11 @@ public class Peca {
         this.id = id;
     }
 
-    public String getCodigo() {
+    public Long getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(Long codigo) {
         this.codigo = codigo;
     }
 
@@ -71,8 +70,14 @@ public class Peca {
     //equals e hashcode
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Peca that)) return false;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getCodigo(), that.getCodigo());
+        if (o == null || getClass() != o.getClass()) return false;
+        Peca peca = (Peca) o;
+        return Objects.equals(id, peca.id) && Objects.equals(codigo, peca.codigo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, codigo);
     }
 
     //toString
@@ -80,7 +85,7 @@ public class Peca {
     public String toString() {
         return "Peca{" +
                 "id=" + id +
-                ", codigo='" + codigo + '\'' +
+                ", codigo=" + codigo +
                 ", nome='" + nome + '\'' +
                 ", componentes=" + componentes +
                 '}';

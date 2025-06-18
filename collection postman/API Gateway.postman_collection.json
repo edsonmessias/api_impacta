@@ -1,0 +1,255 @@
+{
+	"info": {
+		"_postman_id": "218d30a8-9f69-404c-ae52-796f0128842e",
+		"name": "API Gateway",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20542558"
+	},
+	"item": [
+		{
+			"name": "Add Peça",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"codigo\": \"3\",\r\n    \"nome\": \"placa de video\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "host.docker.internal:8000/gateway/v1/add/peca",
+					"host": [
+						"host",
+						"docker",
+						"internal"
+					],
+					"port": "8000",
+					"path": [
+						"gateway",
+						"v1",
+						"add",
+						"peca"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Componente",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"sku\":\"plcm741852\",\r\n    \"descricao\":\"componente da placa mae\",\r\n    \"preco\":\"450\",\r\n    \"quantidade\":\"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "host.docker.internal:8000/gateway/v1/add/componente/peca/3",
+					"host": [
+						"host",
+						"docker",
+						"internal"
+					],
+					"port": "8000",
+					"path": [
+						"gateway",
+						"v1",
+						"add",
+						"componente",
+						"peca",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Peças",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "host.docker.internal:8000/gateway/v1/listar/pecas",
+					"host": [
+						"host",
+						"docker",
+						"internal"
+					],
+					"port": "8000",
+					"path": [
+						"gateway",
+						"v1",
+						"listar",
+						"pecas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Componentes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response has a valid Content-Type of application/json\", function () {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.equal('application/json');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"const responseData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Response is an array\", function () {\r",
+							"    pm.expect(responseData).to.be.an('array');\r",
+							"});\r",
+							"\r",
+							"responseData.forEach(item => {\r",
+							"    pm.test(\"Each item has required properties\", function () {\r",
+							"        pm.expect(item).to.have.all.keys('id', 'sku', 'descricao', 'preco', 'quantidade', 'peca');\r",
+							"    });\r",
+							"\r",
+							"    pm.test(\"Each item has valid 'id'\", function () {\r",
+							"        pm.expect(item.id).to.be.a('number');\r",
+							"    });\r",
+							"\r",
+							"    pm.test(\"Each item has valid 'sku'\", function () {\r",
+							"        pm.expect(item.sku).to.be.a('string');\r",
+							"    });\r",
+							"\r",
+							"    pm.test(\"Each item has valid 'descricao'\", function () {\r",
+							"        pm.expect(item.descricao).to.be.a('string');\r",
+							"    });\r",
+							"\r",
+							"    pm.test(\"Each item has valid 'preco'\", function () {\r",
+							"        pm.expect(item.preco).to.be.a('number');\r",
+							"    });\r",
+							"\r",
+							"    pm.test(\"Each item has valid 'quantidade'\", function () {\r",
+							"        pm.expect(item.quantidade).to.be.a('number');\r",
+							"    });\r",
+							"\r",
+							"    pm.test(\"Each item has valid 'peca' structure\", function () {\r",
+							"        pm.expect(item.peca).to.have.all.keys('id', 'codigo', 'nome', 'componentes');\r",
+							"    });\r",
+							"\r",
+							"    pm.test(\"Each 'peca' has valid 'id'\", function () {\r",
+							"        pm.expect(item.peca.id).to.be.a('number');\r",
+							"    });\r",
+							"\r",
+							"    pm.test(\"Each 'peca' has valid 'codigo'\", function () {\r",
+							"        pm.expect(item.peca.codigo).to.be.a('string');\r",
+							"    });\r",
+							"\r",
+							"    pm.test(\"Each 'peca' has valid 'nome'\", function () {\r",
+							"        pm.expect(item.peca.nome).to.be.a('string');\r",
+							"    });\r",
+							"\r",
+							"    pm.test(\"Each 'peca' has valid 'componentes' structure\", function () {\r",
+							"        pm.expect(item.peca.componentes).to.be.an('array');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Ensure required fields are present and have correct data types\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('array').that.is.not.empty;\r",
+							"\r",
+							"    responseData.forEach(function(item) {\r",
+							"        pm.expect(item).to.have.property('id').that.is.a('number');\r",
+							"        pm.expect(item).to.have.property('sku').that.is.a('string');\r",
+							"        pm.expect(item).to.have.property('descricao').that.is.a('string');\r",
+							"        pm.expect(item).to.have.property('preco').that.is.a('number');\r",
+							"        pm.expect(item).to.have.property('quantidade').that.is.a('number');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "host.docker.internal:8000/gateway/v1/listar/componente/peca/2",
+					"host": [
+						"host",
+						"docker",
+						"internal"
+					],
+					"port": "8000",
+					"path": [
+						"gateway",
+						"v1",
+						"listar",
+						"componente",
+						"peca",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Peças por ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"sku\":\"abc123\",\r\n    \"descricao\":\"componente da peça 2\",\r\n    \"preco\":\"1.5\",\r\n    \"quantidade\":\"1\"\r\n}"
+				},
+				"url": {
+					"raw": "host.docker.internal:8000/gateway/v1/listar/peca/id/2",
+					"host": [
+						"host",
+						"docker",
+						"internal"
+					],
+					"port": "8000",
+					"path": [
+						"gateway",
+						"v1",
+						"listar",
+						"peca",
+						"id",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

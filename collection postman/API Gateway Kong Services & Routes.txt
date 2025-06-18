@@ -1,0 +1,282 @@
+CRIAÇÃO DOS SERVICES - KONG
+
+Gateway Service: add-pecas
+
+{
+  "port": 8080,
+  "path": "/api/v1/peca",
+  "name": "add-pecas",
+  "client_certificate": null,
+  "tags": null,
+  "ca_certificates": null,
+  "write_timeout": 60000,
+  "connect_timeout": 60000,
+  "tls_verify": null,
+  "tls_verify_depth": null,
+  "host": "host.docker.internal",
+  "protocol": "http",
+  "id": "21a7962b-804d-42ae-a1fa-003916aa2723",
+  "read_timeout": 60000,
+  "enabled": true,
+  "retries": 5
+}
+------------------------------------------------------
+
+Gateway Service: listar-pecas
+
+{
+  "port": 8080,
+  "path": "/api/v1/peca",
+  "name": "listar-pecas",
+  "client_certificate": null,
+  "tags": null,
+  "ca_certificates": null,
+  "write_timeout": 60000,
+  "connect_timeout": 60000,
+  "tls_verify": null,
+  "tls_verify_depth": null,
+  "host": "host.docker.internal",
+  "protocol": "http",
+  "id": "38bc22d5-909c-4a75-8178-a37a08d9beea",
+  "read_timeout": 60000,
+  "enabled": true,
+  "retries": 5
+}
+------------------------------------------------------
+
+Gateway Service: listar-pecas-id
+
+{
+  "port": 8080,
+  "path": "/api/v1/peca",
+  "name": "listar-pecas-id",
+  "client_certificate": null,
+  "tags": null,
+  "ca_certificates": null,
+  "write_timeout": 60000,
+  "connect_timeout": 60000,
+  "tls_verify": null,
+  "tls_verify_depth": null,
+  "host": "host.docker.internal",
+  "protocol": "http",
+  "id": "135052ca-2e10-4624-8d09-334fd5472d81",
+  "read_timeout": 60000,
+  "enabled": true,
+  "retries": 5
+}
+------------------------------------------------------
+
+Gateway Service: add-componente
+
+{
+  "port": 8080,
+  "path": "/api/v1/componente/peca",
+  "name": "add-componente",
+  "client_certificate": null,
+  "tags": null,
+  "ca_certificates": null,
+  "write_timeout": 60000,
+  "connect_timeout": 60000,
+  "tls_verify": null,
+  "tls_verify_depth": null,
+  "host": "host.docker.internal",
+  "protocol": "http",
+  "id": "9f084074-9700-4036-aec1-dc4f85434b01",
+  "read_timeout": 60000,
+  "enabled": true,
+  "retries": 5
+}
+------------------------------------------------------
+
+Gateway Service: listar-componentes
+
+{
+  "port": 8080,
+  "path": "/api/v1/componente/peca",
+  "name": "listar-componentes",
+  "client_certificate": null,
+  "tags": null,
+  "ca_certificates": null,
+  "write_timeout": 60000,
+  "connect_timeout": 60000,
+  "tls_verify": null,
+  "tls_verify_depth": null,
+  "host": "host.docker.internal",
+  "protocol": "http",
+  "id": "f9a60749-a5bc-4a1e-b3fe-1f128faa03b8",
+  "read_timeout": 60000,
+  "enabled": true,
+  "retries": 5
+}
+------------------------------------------------------
+
+CRIAÇÃO DAS ROUTES - KONG
+
+Route: add-peca-rota
+
+{
+  "hosts": null,
+  "methods": [
+    "POST"
+  ],
+  "name": "add-peca-rota",
+  "strip_path": true,
+  "tags": [],
+  "paths": [
+    "/gateway/v1/add/peca"
+  ],
+  "preserve_host": false,
+  "regex_priority": 0,
+  "id": "13bcc767-504e-4d47-9a9f-8d263aab0809",
+  "service": {
+    "id": "21a7962b-804d-42ae-a1fa-003916aa2723"
+  },
+  "path_handling": "v0",
+  "snis": null,
+  "protocols": [
+    "http",
+    "https"
+  ],
+  "request_buffering": true,
+  "sources": null,
+  "response_buffering": true,
+  "headers": null,
+  "destinations": null,
+  "https_redirect_status_code": 426
+}
+------------------------------------------------------
+
+Route: listar-pecas-rota
+
+{
+  "hosts": null,
+  "methods": [
+    "GET"
+  ],
+  "name": "listar-pecas-rota",
+  "strip_path": true,
+  "tags": [],
+  "paths": [
+    "/gateway/v1/listar/pecas"
+  ],
+  "preserve_host": false,
+  "regex_priority": 0,
+  "id": "d9838ffe-382b-4684-96c0-7b2cc7364888",
+  "service": {
+    "id": "38bc22d5-909c-4a75-8178-a37a08d9beea"
+  },
+  "path_handling": "v0",
+  "snis": null,
+  "protocols": [
+    "http",
+    "https"
+  ],
+  "request_buffering": true,
+  "sources": null,
+  "response_buffering": true,
+  "headers": null,
+  "destinations": null,
+  "https_redirect_status_code": 426
+}
+------------------------------------------------------
+
+Route: listar-peca-id-rota
+
+{
+  "hosts": null,
+  "methods": [
+    "GET"
+  ],
+  "name": "listar-peca-id-rota",
+  "strip_path": true,
+  "tags": [],
+  "paths": [
+    "/gateway/v1/listar/peca/id"
+  ],
+  "preserve_host": false,
+  "regex_priority": 0,
+  "id": "5656e23d-4c73-4c3f-8fdb-86d758d47365",
+  "service": {
+    "id": "135052ca-2e10-4624-8d09-334fd5472d81"
+  },
+  "path_handling": "v0",
+  "snis": null,
+  "protocols": [
+    "http",
+    "https"
+  ],
+  "request_buffering": true,
+  "sources": null,
+  "response_buffering": true,
+  "headers": null,
+  "destinations": null,
+  "https_redirect_status_code": 426
+}
+------------------------------------------------------
+
+Route: add-componente-rota
+
+{
+  "hosts": null,
+  "methods": [
+    "POST"
+  ],
+  "name": "add-componente-rota",
+  "strip_path": true,
+  "tags": [],
+  "paths": [
+    "/gateway/v1/add/componente/peca"
+  ],
+  "preserve_host": false,
+  "regex_priority": 0,
+  "id": "109edf1f-2311-48dc-b48c-bcbc10c17ad0",
+  "service": {
+    "id": "9f084074-9700-4036-aec1-dc4f85434b01"
+  },
+  "path_handling": "v0",
+  "snis": null,
+  "protocols": [
+    "http",
+    "https"
+  ],
+  "request_buffering": true,
+  "sources": null,
+  "response_buffering": true,
+  "headers": null,
+  "destinations": null,
+  "https_redirect_status_code": 426
+}
+------------------------------------------------------
+
+Route: listar-componentes-rota
+
+{
+  "hosts": null,
+  "methods": [
+    "GET"
+  ],
+  "name": "listar-componentes-rota",
+  "strip_path": true,
+  "tags": [],
+  "paths": [
+    "/gateway/v1/listar/componente/peca"
+  ],
+  "preserve_host": false,
+  "regex_priority": 0,
+  "id": "4ecb45e7-ee38-4e4c-b5d5-3cbcf269e10b",
+  "service": {
+    "id": "f9a60749-a5bc-4a1e-b3fe-1f128faa03b8"
+  },
+  "path_handling": "v0",
+  "snis": null,
+  "protocols": [
+    "http",
+    "https"
+  ],
+  "request_buffering": true,
+  "sources": null,
+  "response_buffering": true,
+  "headers": null,
+  "destinations": null,
+  "https_redirect_status_code": 426
+}

@@ -11,5 +11,5 @@ import java.util.List;
 @Repository
 @Transactional
 public interface ComponenteRepository extends JpaRepository<Componente, Long> {
-    List<Componente> findByPecaCodigo(String codigo);
+    List<Componente> findByPecaCodigo(Long codigo);
 }

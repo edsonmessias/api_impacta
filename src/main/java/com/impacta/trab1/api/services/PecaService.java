@@ -21,7 +21,7 @@ public class PecaService {
         return pecaRepo.findAll();
     }
 
-    public Optional<Peca> buscarPorCodigo(String codigo) {
+    public Optional<Peca> buscarPorCodigo(Long codigo) {
         return pecaRepo.findByCodigo(codigo);
     }
 }

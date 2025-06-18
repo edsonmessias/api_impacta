@@ -10,5 +10,5 @@ import java.util.Optional;
 @Repository
 @Transactional
 public interface PecaRepository extends JpaRepository<Peca, Long> {
-    Optional<Peca> findByCodigo(String codigo);
+    Optional<Peca> findByCodigo(Long codigo);
 }

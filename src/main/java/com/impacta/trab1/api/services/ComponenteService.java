@@ -17,14 +17,14 @@ public class ComponenteService {
     @Autowired
     private PecaRepository pecaRepo;
 
-    public Componente adicionarComponente(String codigoPeca, Componente comp) {
+    public Componente adicionarComponente(Long codigoPeca, Componente comp) {
         Peca peca = pecaRepo.findByCodigo(codigoPeca)
                 .orElseThrow(() -> new RuntimeException("Peça não encontrada"));
         comp.setPeca(peca);
         return compRepo.save(comp);
     }
 
-    public List<Componente> listarPorPeca(String codigoPeca) {
+    public List<Componente> listarPorPeca(Long codigoPeca) {
         return compRepo.findByPecaCodigo(codigoPeca);
     }
 }
